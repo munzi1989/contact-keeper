@@ -1,11 +1,27 @@
 const express = require('express');
+// require file from config
+const connectDB = require('./config/db');
 
+// init express
 const app = express();
 
+// Connect database
+connectDB();
+
 app.get('/', (req, res) => {
-    res.json({msg: "Welcome to the Contact Keeper API!"})
-})
+  res.json({ msg: 'Welcome to the Contact Keeper API!' });
+});
 
-const PORT = process.env.PORT || 5000
+// define routes
+app.use('/api/users', require('./routes/users'))
+app.use('/api/auth', require('./routes/auth'))
+app.use('/api/contacts', require('./routes/contacts'))
 
-app.listen(PORT, () => {console.log(`SUCCESS! Server running on port:${PORT}`)})
+
+// use local port or process.env port
+const PORT = process.env.PORT || 5000;
+
+// connect express to port
+app.listen(PORT, () => {
+  console.log(`SUCCESS! Server running on port:${PORT}`);
+});
