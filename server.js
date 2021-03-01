@@ -9,17 +9,16 @@ const app = express();
 connectDB();
 
 // Init middleware to accept data
-app.use(express.json({extended: false}))
+app.use(express.json({ extended: false }));
 
 app.get('/', (req, res) => {
   res.json({ msg: 'Welcome to the Contact Keeper API!' });
 });
 
 // define routes
-app.use('/api/users', require('./routes/users'))
-app.use('/api/auth', require('./routes/auth'))
-app.use('/api/contacts', require('./routes/contacts'))
-
+app.use('/api/users', require('./routes/users'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/contacts', require('./routes/contacts'));
 
 // use local port or process.env port
 const PORT = process.env.PORT || 5000;

@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 // @route   POST    api/users
-// @desc    Register a user
+// @desc    Register a user to database
 // @access  Public
 router.post(
   '/',
