@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
@@ -50,6 +50,7 @@ router.post(
       user.password = await bcrypt.hash(password, salt);
       // save to mongoDB
       await user.save();
+      console.log('User registered to database');
       //   define payload for JWT
       const payload = {
         user: {
