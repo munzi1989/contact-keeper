@@ -17,7 +17,7 @@ const ContactItem = ({ contact }) => {
   const onDelete = () => {
     deleteContact(id);
     clearCurrent();
-    console.log('Deleted Contact, state.current reset to null')
+    console.log(`Deleted Contact ${JSON.stringify(contact)}`);
   };
 
   return (

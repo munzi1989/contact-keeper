@@ -1,8 +1,26 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/ContactContext';
 
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);
+
+  const { addContact, current, clearCurrent, updateContact } = contactContext;
+
+  useEffect(() => {
+    if (current !== null) {
+      // fills form with state.current data
+      setContact(current);
+    } else {
+      // if state.current === null, form is set to default values
+      setContact({
+        name: '',
+        email: '',
+        phone: '',
+        type: 'personal',
+      });
+    }
+    // only fire if state.current or contactContext is changed
+  }, [contactContext, current]);
 
   //   initialize local state and update method locally
   const [contact, setContact] = useState({
@@ -17,25 +35,40 @@ const ContactForm = () => {
 
   // update state values as they are typed in
   const onChange = (e) =>
+    // fills form with param values
     setContact({ ...contact, [e.target.name]: e.target.value });
 
   //   update state through context methods to add contact
   const onSubmit = (e) => {
     e.preventDefault();
-    contactContext.addContact(contact);
-    // return form to default values
-    setContact({
-      name: '',
-      email: '',
-      phone: '',
-      type: 'personal',
-    });
-    console.log(`Contact added: ${JSON.stringify(contact)} `);
+    if (current === null) {
+      // use addContact method from context to add contact to array
+      addContact(contact);
+      // return form to default values
+      setContact({
+        name: '',
+        email: '',
+        phone: '',
+        type: 'personal',
+      });
+      console.log(`Contact added: ${JSON.stringify(contact)} `);
+    } else {
+      // if current, update contact with current data
+      updateContact(contact);
+      console.log(`Updated Contact: ${JSON.stringify(contact)}`)
+    }
+    clearForm();
+  };
+
+  const clearForm = () => {
+    clearCurrent();
   };
 
   return (
     <form onSubmit={onSubmit}>
-      <h2 className="text-primary">Add Contact</h2>
+      <h2 className="text-primary">
+        {current ? 'Update Contact' : 'Add Contact'}
+      </h2>
       <input
         type="text"
         placeholder="Name"
@@ -77,9 +110,18 @@ const ContactForm = () => {
       <div>
         <input
           type="submit"
-          value="Add Contact"
+          value={current ? 'Update Contact' : 'Add Contact'}
           className="btn btn-primary btn-block"
         />
+        {current && (
+          <input
+            type="submit"
+            value="Cancel"
+            className="btn btn-danger btn-block"
+            onClick={clearForm}
+            style={{ textAlign: 'center' }}
+          />
+        )}
       </div>
     </form>
   );
