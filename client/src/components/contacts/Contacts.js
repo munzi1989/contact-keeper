@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from 'react';
 import ContactContext from '../../context/contact/ContactContext';
 import ContactItem from './ContactItem';
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const Contacts = () => {
   // initialize context API
@@ -21,15 +21,21 @@ const Contacts = () => {
   } else {
     return (
       <Fragment>
-        {/* if searching for contacts, render filtered contacts */}
-        {filtered
-          ? filtered.map((contact) => (
-              <ContactItem key={contact.id} contact={contact} />
-            ))
-          : // else, return all contacts
-            contacts.map((contact) => (
-              <ContactItem key={contact.id} contact={contact} />
-            ))}
+        <TransitionGroup>
+          {/* if searching for contacts, render filtered contacts */}
+          {filtered
+            ? filtered.map((contact) => (
+                <CSSTransition key={contact.id} timeout={500} classNames="item">
+                  <ContactItem contact={contact} />
+                </CSSTransition>
+              ))
+            : // else, return all contacts
+              contacts.map((contact) => (
+                <CSSTransition key={contact.id} timeout={500} classNames="item">
+                  <ContactItem contact={contact} />
+                </CSSTransition>
+              ))}
+        </TransitionGroup>
       </Fragment>
     );
   }
