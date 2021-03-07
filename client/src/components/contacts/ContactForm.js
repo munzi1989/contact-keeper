@@ -19,7 +19,7 @@ const ContactForm = () => {
   const onChange = (e) =>
     setContact({ ...contact, [e.target.name]: e.target.value });
 
-  //   update ContactState through context methods
+  //   update state through context methods to add contact
   const onSubmit = (e) => {
     e.preventDefault();
     contactContext.addContact(contact);
@@ -30,6 +30,7 @@ const ContactForm = () => {
       phone: '',
       type: 'personal',
     });
+    console.log(`Contact added: ${JSON.stringify(contact)} `);
   };
 
   return (

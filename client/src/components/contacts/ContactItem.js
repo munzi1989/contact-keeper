@@ -2,18 +2,22 @@ import React, { useContext } from 'react';
 import ContactContext from '../../context/contact/ContactContext';
 import PropTypes from 'prop-types';
 
+// contact prop obtained from Contacts.js map
 const ContactItem = ({ contact }) => {
   // initialize context
   const contactContext = useContext(ContactContext);
 
   // pull function to delete from context
-  const { deleteContact } = contactContext;
+  const { deleteContact, setCurrent, clearCurrent } = contactContext;
 
-  // deconstruct from contact prop
+  // deconstruct from contact prop to use below
   const { name, id, phone, email, type } = contact;
 
+//   handle onClick for delete contact button
   const onDelete = () => {
     deleteContact(id);
+    clearCurrent();
+    console.log('Deleted Contact, state.current reset to null')
   };
 
   return (
@@ -27,16 +31,19 @@ const ContactItem = ({ contact }) => {
             (type === 'professional' ? 'badge-success' : 'badge-primary')
           }
         >
+            {/* capitalize first letter */}
           {type.charAt(0).toUpperCase() + type.slice(1)}
         </span>
       </h3>
       <ul className="list">
+          {/* if email, render */}
         {email && (
           <li>
             <i className="fas fa-envelope-open"></i>
             {' '}{email}
           </li>
         )}
+        {/* if phone, render */}
         {phone && (
           <li>
             <i className="fas fa-phone"></i>
@@ -45,7 +52,7 @@ const ContactItem = ({ contact }) => {
         )}
       </ul>
       <p>
-        <button className="btn btn-dark btn-sm">Edit</button>
+        <button className="btn btn-dark btn-sm" onClick={() => setCurrent(contact)}>Edit</button>
         <button className="btn btn-danger btn-sm" onClick={onDelete}>
           Delete
         </button>
@@ -54,6 +61,7 @@ const ContactItem = ({ contact }) => {
   );
 };
 
+// type-checking
 ContactItem.propTypes = {
   contact: PropTypes.object.isRequired,
 };

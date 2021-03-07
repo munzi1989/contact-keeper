@@ -37,6 +37,7 @@ const ContactState = (props) => {
         type: 'professional',
       },
     ],
+    current: null,
   };
   //   state allows access to state, dispatch allows objects to reducer
   const [state, dispatch] = useReducer(ContactReducer, initialState);
@@ -49,12 +50,19 @@ const ContactState = (props) => {
 
   //Delete contact
   const deleteContact = (id) => {
-      dispatch({type: DELETE_CONTACT, payload: id})
-  }
+    dispatch({ type: DELETE_CONTACT, payload: id });
+  };
 
   //Set current contact
+  //  adds contact to state.current to edit
+  const setCurrent = (contact) => {
+    dispatch({ type: SET_CURRENT, payload: contact });
+  };
 
-  //clear current contact
+  //clear current contact - set state.current back to null
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_CURRENT });
+  };
 
   // Update contact
 
@@ -67,8 +75,11 @@ const ContactState = (props) => {
       //   value defines what datat/methods are available to use from ContactContext in other components
       value={{
         contacts: state.contacts,
+        current: state.current,
         addContact,
-        deleteContact
+        deleteContact,
+        setCurrent,
+        clearCurrent,
       }}
     >
       {props.children}

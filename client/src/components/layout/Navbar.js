@@ -16,6 +16,7 @@ const Navbar = ({ title, icon }) => {
   );
 };
 
+// type checking
 Navbar.Propytypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.string,
