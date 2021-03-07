@@ -47,7 +47,7 @@ const AuthState = (props) => {
         error: state.error,
       }}
     >
-      {/* pass values to compoenets/children within Context.Provider */}
+      {/* pass values to compoenets/children within Auth.Provider */}
       {props.children}
     </AuthContext.Provider>
   );
