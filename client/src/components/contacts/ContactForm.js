@@ -2,8 +2,9 @@ import React, { useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/ContactContext';
 
 const ContactForm = () => {
+  // init context
   const contactContext = useContext(ContactContext);
-
+// deconstruct to us below
   const { addContact, current, clearCurrent, updateContact } = contactContext;
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const ContactForm = () => {
     } else {
       // if current, update contact with current data
       updateContact(contact);
-      console.log(`Updated Contact: ${JSON.stringify(contact)}`)
+      console.log(`Updated Contact: ${JSON.stringify(contact)}`);
     }
     clearForm();
   };
@@ -113,6 +114,7 @@ const ContactForm = () => {
           value={current ? 'Update Contact' : 'Add Contact'}
           className="btn btn-primary btn-block"
         />
+        {/* if editing, show cancel button to clear */}
         {current && (
           <input
             type="submit"

@@ -13,7 +13,7 @@ const ContactItem = ({ contact }) => {
   // deconstruct from contact prop to use below
   const { name, id, phone, email, type } = contact;
 
-//   handle onClick for delete contact button
+  //   handle onClick for delete contact button
   const onDelete = () => {
     deleteContact(id);
     clearCurrent();
@@ -31,28 +31,31 @@ const ContactItem = ({ contact }) => {
             (type === 'professional' ? 'badge-success' : 'badge-primary')
           }
         >
-            {/* capitalize first letter */}
+          {/* capitalize first letter */}
           {type.charAt(0).toUpperCase() + type.slice(1)}
         </span>
       </h3>
       <ul className="list">
-          {/* if email, render */}
+        {/* if email, render data*/}
         {email && (
           <li>
-            <i className="fas fa-envelope-open"></i>
-            {' '}{email}
+            <i className="fas fa-envelope-open"></i> {email}
           </li>
         )}
-        {/* if phone, render */}
+        {/* if phone, render data*/}
         {phone && (
           <li>
-            <i className="fas fa-phone"></i>
-            {' '}{phone}
+            <i className="fas fa-phone"></i> {phone}
           </li>
         )}
       </ul>
       <p>
-        <button className="btn btn-dark btn-sm" onClick={() => setCurrent(contact)}>Edit</button>
+        <button
+          className="btn btn-dark btn-sm"
+          onClick={() => setCurrent(contact)}
+        >
+          Edit
+        </button>
         <button className="btn btn-danger btn-sm" onClick={onDelete}>
           Delete
         </button>

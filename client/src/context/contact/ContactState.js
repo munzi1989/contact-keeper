@@ -13,7 +13,9 @@ import {
 } from '../types';
 
 const ContactState = (props) => {
+  // 'initialState' is the same as 'state'
   const initialState = {
+    //   the array of users contacts
     contacts: [
       {
         id: 1,
@@ -37,7 +39,10 @@ const ContactState = (props) => {
         type: 'professional',
       },
     ],
+    // the object used to edit/delete the contact in question
     current: null,
+    // the array of contacts matching the regex/text
+    filtered: null,
   };
   //   state allows access to state, dispatch allows objects to reducer
   const [state, dispatch] = useReducer(ContactReducer, initialState);
@@ -66,26 +71,36 @@ const ContactState = (props) => {
 
   // Update contact
   const updateContact = (contact) => {
-    dispatch({type: UPDATE_CONTACT, payload: contact})
-  }
+    dispatch({ type: UPDATE_CONTACT, payload: contact });
+  };
 
   // filter contacts
+  const filterContacts = (text) => {
+    dispatch({ type: FILTER_CONTACTS, payload: text });
+  };
 
   // clear filter
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  };
 
   return (
     <ContactContext.Provider
-      //   value defines what datat/methods are available to use from ContactContext in other components
+      //   value defines what data/methods are available to use from ContactContext in other components
       value={{
         contacts: state.contacts,
         current: state.current,
+        filtered: state.filtered,
         addContact,
         deleteContact,
+        updateContact,
         setCurrent,
         clearCurrent,
-        updateContact
+        filterContacts,
+        clearFilter,
       }}
     >
+      {/* pass values to compoenets/children within Context.Provider */}
       {props.children}
     </ContactContext.Provider>
   );
