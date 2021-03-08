@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect} from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/ContactContext';
 import ContactItem from './ContactItem';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -28,7 +28,7 @@ const Contacts = () => {
     return (
       <Fragment>
         {contacts !== null && !loading ? (
-          <TransitionGroup >
+          <TransitionGroup>
             {/* if searching for contacts, render filtered contacts */}
             {filtered
               ? filtered.map((contact) => (

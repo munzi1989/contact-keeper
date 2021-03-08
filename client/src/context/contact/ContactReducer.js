@@ -29,7 +29,7 @@ const Reducer = (state, action) => {
       return {
         ...state,
         // set contacts array to old contacts + new contact info
-        contacts: [...state.contacts, action.payload],
+        contacts: [action.payload, ...state.contacts],
         loading: false,
       };
     case DELETE_CONTACT:
@@ -71,7 +71,7 @@ const Reducer = (state, action) => {
             contact.name.match(regex) ||
             contact.email.match(regex) ||
             contact.type.match(regex) ||
-            contact.phone.match
+            contact.phone.match(regex)
           );
         }),
         loading: false,

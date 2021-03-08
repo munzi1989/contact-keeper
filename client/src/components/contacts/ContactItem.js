@@ -1,14 +1,17 @@
 import React, { useContext} from 'react';
 import ContactContext from '../../context/contact/ContactContext';
+import AlertContext from '../../context/alert/AlertContext';
 import PropTypes from 'prop-types';
 
 // contact prop obtained from Contacts.js map
 const ContactItem = ({ contact }) => {
   // initialize context
   const contactContext = useContext(ContactContext);
+  const alertContext = useContext(AlertContext);
 
   // pull function to delete from context
   const { deleteContact, setCurrent, clearCurrent } = contactContext;
+  const {setAlert} = alertContext;
 
   // deconstruct from contact prop to use below
   const { name, _id, phone, email, type } = contact;
@@ -17,13 +20,13 @@ const ContactItem = ({ contact }) => {
   const onDelete = () => {
     deleteContact(_id);
     clearCurrent();
+    setAlert(' Contact Deleted', 'success')
     console.log(`Deleted Contact ${JSON.stringify(contact)}`);
+
   };
 
-
-
   return (
-    <div className="card bg-light">
+    <div className="card bg-light" >
       <h3 className="text-primary text-left">
         {name}{' '}
         <span

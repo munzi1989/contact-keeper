@@ -61,7 +61,7 @@ const ContactForm = () => {
       // if current, update contact with current data
       updateContact(contact);
       console.log(` Updated Contact: ${JSON.stringify(contact)}`);
-      setAlert('Contact Updated', 'success')
+      setAlert(' Contact Updated', 'success')
     }
     clearForm();
   };

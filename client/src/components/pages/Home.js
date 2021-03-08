@@ -24,10 +24,12 @@ const Home = () => {
       <div>
         <ContactForm />
       </div>
-      <div>
+      <div >
         {/* if contacts, render search bar */}
-        {contacts !== null && !loading && contacts.length !== 0 && <ContactFilter />}
-        <Contacts />
+        {contacts !== null && !loading && contacts.length !== 0 && (
+          <ContactFilter />
+        )}
+          <Contacts />
       </div>
     </div>
   );
