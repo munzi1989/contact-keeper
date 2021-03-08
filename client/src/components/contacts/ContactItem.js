@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext} from 'react';
 import ContactContext from '../../context/contact/ContactContext';
 import PropTypes from 'prop-types';
 
@@ -11,14 +11,16 @@ const ContactItem = ({ contact }) => {
   const { deleteContact, setCurrent, clearCurrent } = contactContext;
 
   // deconstruct from contact prop to use below
-  const { name, id, phone, email, type } = contact;
+  const { name, _id, phone, email, type } = contact;
 
   //   handle onClick for delete contact button
   const onDelete = () => {
-    deleteContact(id);
+    deleteContact(_id);
     clearCurrent();
     console.log(`Deleted Contact ${JSON.stringify(contact)}`);
   };
+
+
 
   return (
     <div className="card bg-light">

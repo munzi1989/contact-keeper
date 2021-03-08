@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
+import SetAuthToken from '../../utils/SetAuthToken';
 import AuthContext from '../auth/AuthContext';
 import AuthReducer from '../auth/AuthReducer';
 import {
@@ -10,7 +11,7 @@ import {
   LOGIN_SUCCESSFUL,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS,
+  CLEAR_ERRORS
 } from '../types';
 
 const AuthState = (props) => {
@@ -27,12 +28,29 @@ const AuthState = (props) => {
   //   state allows access to state, dispatch allows objects to reducer
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
-  //  Load user, load user contacts
-  const loadUser = () => {
-    console.log('Load user');
+  //  LOAD USER, load user contacts
+  const loadUser = async () => {
+    // if valid token, set user token to use globally for axios
+    if (localStorage.token) {
+      SetAuthToken(localStorage.token);
+    }
+
+    try {
+      const res = await axios.get('/api/auth');
+
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: AUTH_ERROR,
+      });
+      console.log(err.message);
+    }
   };
 
-  // Register user, sign up
+  // REGISTER USER, sign up
   const register = async (FormData) => {
     // add headers
     const config = {
@@ -46,6 +64,8 @@ const AuthState = (props) => {
         type: REGISTER_SUCCESS,
         payload: res.data,
       });
+      // load user after register is successful
+      loadUser();
     } catch (err) {
       dispatch({
         type: REGISTER_FAIL,
@@ -55,17 +75,39 @@ const AuthState = (props) => {
     }
   };
 
-  // Login user, get token
-  const loginUser = () => {
-    console.log('Login user');
+  // LOGIN USER, get token
+  const loginUser = async (FormData) => {
+    // add headers
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const res = await axios.post('/api/auth', FormData, config);
+      dispatch({
+        type: LOGIN_SUCCESSFUL,
+        payload: res.data,
+      });
+      // load user after register is successful
+      loadUser();
+    } catch (err) {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err.response.data.msg,
+      });
+      console.log(err.message);
+    }
   };
 
-  // Logout, destroy token
+  // LOGOUT, destroy token
   const logoutUser = () => {
-    console.log('Logout');
+    dispatch({
+      type: LOGOUT,
+    });
   };
 
-  // Clear Errors
+  // CLEAR ERRORS
   const clearErrors = () => {
     dispatch({ type: CLEAR_ERRORS });
   };

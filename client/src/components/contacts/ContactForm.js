@@ -1,11 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/ContactContext';
+import AlertContext from '../../context/alert/AlertContext';
 
 const ContactForm = () => {
   // init context
   const contactContext = useContext(ContactContext);
 // deconstruct to us below
   const { addContact, current, clearCurrent, updateContact } = contactContext;
+
+  const alertContext = useContext(AlertContext);
+  const {setAlert} = alertContext;
 
   useEffect(() => {
     if (current !== null) {
@@ -18,7 +22,7 @@ const ContactForm = () => {
         email: '',
         phone: '',
         type: 'personal',
-      });
+      }); 
     }
     // only fire if state.current or contactContext is changed
   }, [contactContext, current]);
@@ -43,7 +47,7 @@ const ContactForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (current === null) {
-      // use addContact method from context to add contact to array
+      // use addContact method from context to add new contact to array
       addContact(contact);
       // return form to default values
       setContact({
@@ -56,7 +60,8 @@ const ContactForm = () => {
     } else {
       // if current, update contact with current data
       updateContact(contact);
-      console.log(`Updated Contact: ${JSON.stringify(contact)}`);
+      console.log(` Updated Contact: ${JSON.stringify(contact)}`);
+      setAlert('Contact Updated', 'success')
     }
     clearForm();
   };
@@ -76,6 +81,7 @@ const ContactForm = () => {
         name="name"
         value={name}
         onChange={onChange}
+        required
       />
       <input
         type="email"

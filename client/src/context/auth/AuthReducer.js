@@ -11,7 +11,15 @@ import {
 
 const Reducer = (state, action) => {
   switch (action.type) {
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload,
+      };
     case REGISTER_SUCCESS:
+    case LOGIN_SUCCESSFUL:
       // store token in local browser storage
       localStorage.setItem('token', action.payload.token);
       return {
@@ -21,7 +29,10 @@ const Reducer = (state, action) => {
         loading: false,
       };
     case REGISTER_FAIL:
-      //   if failed, remove token form local storage
+    case AUTH_ERROR:
+    case LOGIN_FAIL:
+    case LOGOUT:
+      //   if failed auth || register || login, remove token form local storage
       // set state to default
       localStorage.removeItem('token');
       return {

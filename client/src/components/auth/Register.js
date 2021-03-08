@@ -1,21 +1,27 @@
 import React, { useState, useContext, useEffect } from 'react';
+// import { useHistory } from 'react-router-dom';
 import AlertContext from '../../context/alert/AlertContext';
 import AuthContext from '../../context/auth/AuthContext';
 
-const Register = () => {
+const Register = (props) => {
+  // const history = useHistory();
+
   const alertContext = useContext(AlertContext);
   const { setAlert } = alertContext;
 
   const authContext = useContext(AuthContext);
-  const {register, error, clearErrors } = authContext;
+  const { register, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
-    if(error === 'User already exists'){
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+    if (error === 'User already exists') {
       setAlert(` ${error}`, 'danger');
       clearErrors();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error, isAuthenticated, props.history]);
 
   // init local state
   const [user, setUser] = useState({
@@ -42,8 +48,8 @@ const Register = () => {
     } else {
       register({
         name,
-        email, 
-        password
+        email,
+        password,
       });
     }
   };
@@ -56,11 +62,23 @@ const Register = () => {
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name</label>
-          <input type="text" name="name" value={name} onChange={onChange} required/>
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={onChange}
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" value={email} onChange={onChange} required/>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={onChange}
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
