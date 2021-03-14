@@ -25,12 +25,14 @@ const Navbar = ({ title, icon }) => {
           <span className="hide-"></span> Logout
         </i>
       </a>
+      <Link to="/about">About</Link>
     </Fragment>
   );
   const guestLinks = (
     <Fragment>
       <Link to="/login">Login</Link>
       <Link to="/register">Register</Link>
+      <Link to="/about">About</Link>
     </Fragment>
   );
 
