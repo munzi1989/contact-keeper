@@ -51,8 +51,6 @@ const Contacts = () => {
               onScroll={onScroll}
               ref={myRef}
               style={{
-                // border: '1px solid black',
-                // width: '50vw',
                 height: '38vh',
                 overflow: 'scroll',
               }}
