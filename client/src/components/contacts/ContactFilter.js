@@ -43,7 +43,7 @@ const ContactFilter = () => {
       {filtered && (
         <input
           type="submit"
-          value="Clear"
+          value="Clear Filter"
           className="btn btn-danger btn-block"
           onClick={clear}
           style={{ textAlign: 'center' }}

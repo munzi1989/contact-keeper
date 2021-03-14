@@ -3,8 +3,12 @@ import ContactContext from '../../context/contact/ContactContext';
 import AlertContext from '../../context/alert/AlertContext';
 import PropTypes from 'prop-types';
 
+
+
+
 // contact prop obtained from Contacts.js map
 const ContactItem = ({ contact }) => {
+
   // initialize context
   const contactContext = useContext(ContactContext);
   const alertContext = useContext(AlertContext);

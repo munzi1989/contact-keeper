@@ -120,8 +120,7 @@ const ContactForm = () => {
           value={current ? 'Update Contact' : 'Add Contact'}
           className="btn btn-primary btn-block"
         />
-        {/* if editing, show cancel button to clear */}
-        {current && (
+       
           <input
             type="submit"
             value="Cancel"
@@ -129,7 +128,6 @@ const ContactForm = () => {
             onClick={clearForm}
             style={{ textAlign: 'center' }}
           />
-        )}
       </div>
     </form>
   );
