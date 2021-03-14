@@ -25,7 +25,13 @@ const Navbar = ({ title, icon }) => {
           <span className="hide-"></span> Logout
         </i>
       </a>
-      <Link to="/about">About</Link>
+      <Link className="btn btn-success btn-sm" to="/">
+        Home{' '}
+      </Link>
+      <Link className="btn btn-success btn-sm" to="/about">
+        {' '}
+        About
+      </Link>
     </Fragment>
   );
   const guestLinks = (
