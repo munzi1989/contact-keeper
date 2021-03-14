@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import Contacts from '../contacts/Contacts';
 import ContactForm from '../contacts/ContactForm';
 import ContactFilter from '../contacts/ContactFilter';
 import ContactContext from '../../context/contact/ContactContext';
 import AuthContext from '../../context/auth/AuthContext';
+import ContactStats from '../contacts/ContactStats';
 
 const Home = () => {
   // init context
@@ -16,7 +17,7 @@ const Home = () => {
   // load user to keep authentication/user data after redirect from login/register page
   useEffect(() => {
     loadUser();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -24,12 +25,15 @@ const Home = () => {
       <div>
         <ContactForm />
       </div>
-      <div >
+      <div>
         {/* if contacts, render search bar */}
         {contacts !== null && !loading && contacts.length !== 0 && (
-          <ContactFilter />
+          <Fragment>
+            <ContactStats />
+            <ContactFilter />
+          </Fragment>
         )}
-          <Contacts />
+        <Contacts />
       </div>
     </div>
   );
