@@ -34,7 +34,7 @@ const ContactStats = () => {
             className="badge badge-success btn"
             onClick={onClickPro}
           >
-            professional
+            Professional
           </span>{' '}
           {professional > 1 || professional === 0 ? 'contacts' : 'contact'}
         </h4>
@@ -45,7 +45,7 @@ const ContactStats = () => {
             className="badge badge-primary btn"
             onClick={onClickPer}
           >
-            personal
+            Personal
           </span>{' '}
           {personal > 1 || personal === 0 ? 'contacts' : 'contact'}
         </h4>

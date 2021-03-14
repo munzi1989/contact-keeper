@@ -9,6 +9,10 @@
   --success-color: #28a745;
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -401,6 +405,17 @@ table th {
 }
 
 /* Mobile Styles */
+
+
+  .mobile-nav {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+
 @media (max-width: 700px) {
   .hide-sm {
     display: none;

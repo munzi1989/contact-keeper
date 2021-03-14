@@ -16,10 +16,10 @@ const Contacts = () => {
 
   const onScroll = () => {
     // const scrollY = window.scrollY; //Don't get confused by what's scrolling - It's not the window
-    const scrollTop = myRef.current.scrollTop;
+    const ScrollTop = myRef.current.scrollTop;
 
     setScroll({
-      scrollTop: scrollTop,
+      scrollTop: ScrollTop,
     });
   };
 

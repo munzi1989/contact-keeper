@@ -9,7 +9,7 @@ const Navbar = ({ title, icon }) => {
   const { isAuthenticated, logoutUser, user } = authContext;
 
   const contactContext = useContext(ContactContext);
-  const {clearContacts} = contactContext;
+  const { clearContacts } = contactContext;
 
   const onLogout = () => {
     logoutUser();
@@ -20,18 +20,20 @@ const Navbar = ({ title, icon }) => {
   const authLinks = (
     <Fragment>
       <span>Hello {user && user.name}!</span>
-      <a href="#!" onClick={onLogout}>
-        <i className="fas fa-sign-out-alt btn btn-sm">
+      <a href="#/" onClick={onLogout}>
+        <i className="fas fa-sign-out-alt btn btn-sm my-1">
           <span className="hide-"></span> Logout
         </i>
       </a>
-      <Link className="btn btn-success btn-sm" to="/">
-        Home{' '}
-      </Link>
-      <Link className="btn btn-success btn-sm" to="/about">
-        {' '}
-        About
-      </Link>
+      <div className='mobile-nav' >
+        <Link className="btn btn-dark btn-sm" to="/">
+          Home{' '}
+        </Link>
+        <Link className="btn btn-dark btn-sm" to="/about">
+          {' '}
+          About
+        </Link>
+      </div>
     </Fragment>
   );
   const guestLinks = (
